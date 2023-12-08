@@ -4,6 +4,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { databaseConnect } = require('./database');
 
+
 databaseConnect().then(async () => {
     
     console.log("Creating seed data!");
