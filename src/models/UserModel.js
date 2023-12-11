@@ -1,11 +1,28 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    email: String,
-    password: String,
-    username: String,
-    isAdmin: Boolean,
-    instructor: Boolean,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password:  {
+        type: String,
+        required: true,
+    },
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    isAdmin: { 
+        type: Boolean,
+        default: false,
+    },
+    instructor:  { 
+        type: Boolean,
+        default: false,
+    },
 });
 
 UserSchema.pre('save', 
