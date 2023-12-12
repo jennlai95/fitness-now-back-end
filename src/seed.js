@@ -9,12 +9,12 @@ databaseConnect().then(async () => {
     
     console.log("Creating seed data!");
 
-    const AdminProfile = mongoose.model('Admin', {
-        username: String,
-        email: String,
-        password: String,
-        isAdmin: Boolean,
-    })
+    // const AdminProfile = mongoose.model('Admin', {
+    //     username: String,
+    //     email: String,
+    //     password: String,
+    //     isAdmin: Boolean,
+    // })
 
     // create admin user fake
     let Admin1 = new AdminProfile({
