@@ -25,7 +25,7 @@ router.get("/all", async (request, response) => {
 //READ
 // Find one schedule by its ID
 router.get("/:id", async (request, response) => {
-	let result = null;
+	let result = await Schedule.findOne({_id: request.params.id});
 
 	response.json({
 		 result
@@ -51,7 +51,7 @@ router.post("/", async (request, response) => {
 // UPDATE an existing schedule in DB 
 // patch modidies whatever properties is provided and doesn't overwrite or remove any unmentioned properties
 router.patch("/:id", async (request, response) => {
-	let result = null;
+	let result = Schedule.findByIdAndUpdate(request.params.id).catch(error => error);l;
 
 	response.json({
 	     result
@@ -62,7 +62,7 @@ router.patch("/:id", async (request, response) => {
 
 // DELETE an existing class in DB
 router.delete("/:id", async (request, response) => {
-	let result = null;
+	let result = Schedule.findByIdAndDelete(request.params.id).catch(error => error);;
 
 	response.json({
 	   result

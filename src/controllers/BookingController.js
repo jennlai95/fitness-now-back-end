@@ -14,20 +14,20 @@ const router = express.Router();
 // Find ALL bookings in the DB  
 // GET /bookings
 // needs to be admin 
-router.get("/all", async (request, response) => {
+router.get("/admin/all", async (request, response) => {
 	// Empty object in .find() means get ALL documents
 	let result = await Booking.find({});
 
 	response.json({
-		result
+		booking: result
 	});
 
 });
 
 //READ
-// Find one booking  by its ID
-router.get("id/:id", async (request, response) => {
-	let result = null;
+// Find booking  by date
+router.get("/admin/:date", async (request, response) => {
+	let result = await Booking.find({date: request.params.date});
 
 	response.json({
 		 result
@@ -37,23 +37,32 @@ router.get("id/:id", async (request, response) => {
 
 // update and delete needs to be an admin for access
 // CREATE a new booking  in the DB
-// POST localhost:3000/users/
 router.post("/", async (request, response) => {
 
 	// Error handling via Promise.catch()
-	let result = await Booking.create(request.body).catch(error => {return error});
+	let newBooking = await Booking.create(request.body).catch(error => {return error});
 	
 
-	response.json({
-		 result
-	});
+	response.json(
+		 newBooking
+	);
 
 });
 
 // UPDATE an existing schedule in DB 
 // patch modidies whatever properties is provided and doesn't overwrite or remove any unmentioned properties
 router.patch("/:id", async (request, response) => {
-	let result = null;
+	let result = await Booking.findByIdAndUpdate (
+		request.paramds.id,
+		request.body,
+		{
+			returnDocument:"after",
+		}
+	) .catch (error => error);
+
+	response.json({
+		booking:result
+	});
 
 	response.json({
 	     result
@@ -64,7 +73,7 @@ router.patch("/:id", async (request, response) => {
 
 // DELETE an existing class in DB
 router.delete("/:id", async (request, response) => {
-	let result = null;
+	let result = Booking.findByIdAndDelete(request.params.id).catch(error => error);
 
 	response.json({
 	   result

@@ -18,7 +18,7 @@ const ScheduleSchema = new Schema({
         required: true,
     },
 
-    timestamps: true
+
 })
 
 // const ModelName = mongoose.model('Name that appears in mongosh or Cloud Atlas GUI', SchemaThatModelIsBasedOn);

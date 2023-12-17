@@ -26,7 +26,8 @@ router.get("/all", async (request, response) => {
 //READ
 // Find one user by its ID
 router.get("/:id", async (request, response) => {
-	let result = null;
+	let result = await Class.findOne({_id: request.params.id});
+
 
 	response.json({
 		class: result
@@ -51,21 +52,28 @@ router.post("/", async (request, response) => {
 // UPDATE an existing class in DB 
 // patch modidies whatever properties is provided and doesn't overwrite or remove any unmentioned properties
 router.patch("/:id", async (request, response) => {
-	let result = null;
+	let result = await Class.findByIdAndUpdate(
+		request.params.id,
+		request.body,
+		{
+			returnDocument: "after",
+		}
+		).catch(error => error);
 
-	response.json({
-	    class : result
-	});
+
+		response.json({
+	   		 class : result
+		});
 
 });
 
 
 // DELETE an existing class in DB
 router.delete("/:id", async (request, response) => {
-	let result = null;
+	let result = Class.findByIdAndDelete(request.params.id).catch(error => error);
 
 	response.json({
-		class: result
+	   result
 	});
 
 });
