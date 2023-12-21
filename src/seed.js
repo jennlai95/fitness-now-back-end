@@ -43,6 +43,18 @@ databaseConnect().then(async () => {
 });
 
 
-  
+// Schedule/Booking model
+    let newSchedule = new Schedule ({
+        class : Class._id,
+        time : "1600-1700",
+        Date  : "11/12/2023"
 
+    });
+    await Schedule.save().then(() => {
+		console.log(`${Schedule._id} is in the DB`);
+       
+
+  
+ 
+});
 })

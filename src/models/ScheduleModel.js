@@ -8,13 +8,13 @@ const ScheduleSchema = new Schema({
         index: true
       },
     
-    startTime: {
-        type: Number,
+    time: {
+        type: TimeRanges,
         required: true,
     },
 
-    endTime: {
-        type: Number,
+   date: {
+        type: Date,
         required: true,
     },
 
