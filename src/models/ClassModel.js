@@ -1,7 +1,10 @@
+// import mongoose
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
+// create class Schema 
 const ClassSchema = new Schema({
-    name: {
+    Classname: {
       type: String,
       required: true
     },
@@ -12,7 +15,7 @@ const ClassSchema = new Schema({
     
     },
 
-    admin: {
+    username: {
         type: Schema.Types.ObjectId,
         ref: 'User', 
         index: true

@@ -1,76 +1,68 @@
 // import Express library and create instance of a router
 const express = require('express');
-const { Class } = require('../models/ClassModel');
+const { Schedule } = require('../models/ScheduleModel');
 const router = express.Router();
 
 
 
-// class needs to be an admin for access
 
 
-// CRUD: create read update and deletre 
+// CRUD: create read update and delete 
 
 
 // READ
-// Find ALL Class in the DB
+// Find ALL schedule in the DB
 router.get("/all", async (request, response) => {
 	// Empty object in .find() means get ALL documents
-	let result = await Class.find({});
+	let result = await Schedule.find({});
 
 	response.json({
-		classes: result
+		result
 	});
 
 });
 
 //READ
-// Find one user by its ID
+// Find one schedule by its ID
 router.get("/:id", async (request, response) => {
-	let result = await Class.findOne({_id: request.params.id});
-
+	let result = await Schedule.findOne({_id: request.params.id});
 
 	response.json({
-		class: result
+		 result
 	});
 
 });
 
-// CREATE a new Class  in the DB
+// read, update and delete needs to be an admin for access
+// CREATE a new Schedule  in the DB
 // POST localhost:3000/users/
 router.post("/", async (request, response) => {
 
 	// Error handling via Promise.catch()
-	let result = await Class.create(request.body).catch(error => {return error});
+	let result = await Schedule.create(request.body).catch(error => {return error});
 	
 
 	response.json({
-		class: result
+		 result
 	});
 
 });
 
-// UPDATE an existing class in DB 
+// UPDATE an existing schedule in DB 
 // patch modidies whatever properties is provided and doesn't overwrite or remove any unmentioned properties
 router.patch("/:id", async (request, response) => {
-	let result = await Class.findByIdAndUpdate(
-		request.params.id,
-		request.body,
-		{
-			returnDocument: "after",
-		}
-		).catch(error => error);
+	let result = Schedule.findByIdAndUpdate(request.params.id).catch(error => error);l;
 
-
-		response.json({
-	   		 class : result
-		});
+	response.json({
+	     result
+	});
 
 });
 
 
 // DELETE an existing class in DB
 router.delete("/:id", async (request, response) => {
-	let result = Class.findByIdAndDelete(request.params.id).catch(error => error);
+	let result = Schedule.findByIdAndDelete(request.params.id).catch(error => error);;
 
 	response.json({
 	   result

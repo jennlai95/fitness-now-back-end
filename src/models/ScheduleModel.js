@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const ScheduleSchema = new Schema({
     class: {
@@ -7,17 +8,17 @@ const ScheduleSchema = new Schema({
         index: true
       },
     
-    startTime: {
-        type: Number,
+    time: {
+        type: TimeRanges,
         required: true,
     },
 
-    endTime: {
-        type: Number,
+   date: {
+        type: Date,
         required: true,
     },
 
-    timestamps: true
+
 })
 
 // const ModelName = mongoose.model('Name that appears in mongosh or Cloud Atlas GUI', SchemaThatModelIsBasedOn);
