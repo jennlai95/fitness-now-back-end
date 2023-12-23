@@ -1,11 +1,12 @@
 // Server configuration  in server.js
 
-
 const express = require('express');
 
-// CORS server instances;
-
 const cors = require("cors");
+// make a server instance 
+const app = express();
+
+// CORS server instances;
 var corsOptions = {
   origin: [
     "http://localhost:3001",
@@ -16,9 +17,6 @@ var corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
-// make a server instance 
-const app = express();
 
 app.use(express.json());
 
