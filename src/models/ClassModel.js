@@ -16,9 +16,8 @@ const ClassSchema = new Schema({
     },
 
     username: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 
-        index: true
     },
     
 });

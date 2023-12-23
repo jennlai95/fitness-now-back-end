@@ -12,7 +12,8 @@ databaseConnect().then(async () => {
     console.log("Creating seed data!");
 
      try { 
-
+      // Drop the existing collection if it exists
+    await User.collection.drop();
   
     // create admin user fake
     let Admin1 = new User({
@@ -37,10 +38,11 @@ databaseConnect().then(async () => {
     
 
     // create new class 
+    const user = await User.findOne({ username: 'Admin1' });
     let Yoga = new Class({
         Classname : "Yoga",
         description:"yoga class",
-        username: "Admin1",
+        username: user._id,
     });
 
     await Yoga.save().then(() => {
@@ -51,8 +53,10 @@ databaseConnect().then(async () => {
 // Schedule/Booking model
     let newSchedule = new Schedule ({
         class : Class._id,
-        time : "1600-1700",
-        Date  : "11/12/2023"
+        time: {
+            start: "16:00",
+            end : "17:00"},
+        date  : new Date("2023-12-11"),
 
     });
             await newSchedule.save();

@@ -13,7 +13,7 @@ const router = express.Router();
 
 // READ
 // Find ALL Class in the DB
-router.get("class/all", async (request, response) => {
+router.get("/all", async (request, response) => {
 	// Empty object in .find() means get ALL documents
 	let result = await Class.find({});
 

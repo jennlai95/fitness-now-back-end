@@ -10,11 +10,11 @@ const ScheduleSchema = new Schema({
     
       time: {
         start: {
-            type: Date,
+            type: String,
             required: true,
         },
         end: {
-            type: Date,
+            type: String,
             required: true,
         }
     },

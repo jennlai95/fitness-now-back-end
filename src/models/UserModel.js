@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const validator = require('validator');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -27,6 +28,8 @@ const UserSchema = new mongoose.Schema({
     },
 
 });
+
+UserSchema.plugin(uniqueValidator);
 
 UserSchema.pre('save', 
     async function (next) {

@@ -39,9 +39,9 @@ const bookingController = require("./controllers/BookingController");
 const classController = require("./controllers/ClassController");
 const scheduleController = require("./controllers/ScheduleController");
 
-app.use("/classes", classController);
+app.use("/class", classController);
 app.use("/users", userController );
-app.use("/bookings", bookingController );
+app.use("/booking", bookingController );
 app.use("/schedule", scheduleController)
 
 
