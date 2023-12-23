@@ -1,24 +1,19 @@
 require('dotenv').config();
 const bcrypt = require("bcryptjs");
-
-
 const mongoose = require('mongoose');
 const { databaseConnect } = require('./database');
 const { User } = require('./models/UserModel');
 const { Class } = require('./models/ClassModel');
+const { Schedule } = require('./models/ScheduleModel');
 
-
+// connect to database to add seed data
 databaseConnect().then(async () => {
     
     console.log("Creating seed data!");
 
-    // const AdminProfile = mongoose.model('Admin', {
-    //     username: String,
-    //     email: String,
-    //     password: String,
-    //     isAdmin: Boolean,
-    // })
+     try { 
 
+  
     // create admin user fake
     let Admin1 = new User({
         username: "Admin1",
@@ -31,11 +26,21 @@ databaseConnect().then(async () => {
 		console.log(`${Admin1.username} is in the DB`);
 	});
 
+    
+ // user data non-admin
+    const User1 = new User({
+        username: "User1",
+        email: "user11@email.com",
+        password: "UserPassword1",
+        isAdmin: false,
+    });
+    
+
     // create new class 
     let Yoga = new Class({
         Classname : "Yoga",
         description:"yoga class",
-        admin: "Admin1",
+        username: "Admin1",
     });
 
     await Yoga.save().then(() => {
@@ -50,11 +55,19 @@ databaseConnect().then(async () => {
         Date  : "11/12/2023"
 
     });
-    await Schedule.save().then(() => {
-		console.log(`${Schedule._id} is in the DB`);
-       
+            await newSchedule.save();
+            console.log(`${newSchedule._id} is in the DB`);
 
-  
- 
-});
-})
+            // error message handling
+ } catch (error) {
+            console.error(`Error creating seed data: ${error.message}`);
+} finally {
+            // Close the database connection
+ await mongoose.connection.close();
+ }
+        })
+        // error message if failed to connect
+        .catch((error) => {
+        console.error(`Error connecting to the database: ${error.message}`);
+        });
+

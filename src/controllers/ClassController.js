@@ -13,7 +13,7 @@ const router = express.Router();
 
 // READ
 // Find ALL Class in the DB
-router.get("/all", async (request, response) => {
+router.get("class/all", async (request, response) => {
 	// Empty object in .find() means get ALL documents
 	let result = await Class.find({});
 
@@ -36,7 +36,7 @@ router.get("/:id", async (request, response) => {
 });
 
 // CREATE a new Class  in the DB
-// POST localhost:3000/users/
+// POST localhost:3000/class/
 router.post("/", async (request, response) => {
 
 	// Error handling via Promise.catch()
