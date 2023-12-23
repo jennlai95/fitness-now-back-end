@@ -5,6 +5,7 @@ const { databaseConnect } = require('./database');
 const { User } = require('./models/UserModel');
 const { Class } = require('./models/ClassModel');
 const { Schedule } = require('./models/ScheduleModel');
+const { Booking } = require('./models/BookingModel');
 
 // connect to database to add seed data
 databaseConnect().then(async () => {
@@ -50,9 +51,26 @@ databaseConnect().then(async () => {
 });
 
 
+    // create new booking
+    let newBooking = await Booking.create({
+        name: Admin1._id,
+        schedule: Yoga._id,
+        price: "$25",
+        date: new Date("2023-12-11"),
+      });
+
+      let newBooking1 = await Booking.create({
+        name: User1._id,
+        schedule: Yoga._id,
+        price: "$25",
+        date: new Date("2023-12-11"),
+      });
+
+    
+
 // Schedule/Booking model
     let newSchedule = new Schedule ({
-        class : Class._id,
+        class : Yoga._id,
         time: {
             start: "16:00",
             end : "17:00"},
