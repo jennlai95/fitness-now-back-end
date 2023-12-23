@@ -1,7 +1,7 @@
 // import Express library and create instance of a router
 const express = require('express');
 const { Booking } = require('../models/BookingModel');
-const { isAdmin } = require('../middleware/authMiddleware');
+const { isAdmin, authMiddleware } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 
@@ -41,7 +41,7 @@ router.get("/my-bookings", authMiddleware, async (request, response) => {
 	  response.status(500).json({ error: error.message });
 	}
   });
-  
+
 //READ
 // Find booking  by date
 router.get("/admin/:date", isAdmin, async (request, response) => {

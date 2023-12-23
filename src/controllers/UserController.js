@@ -2,6 +2,7 @@
 const express = require('express');
 const { User } = require('../models/UserModel');
 const { comparePassword, generateJwt } = require('../functions/userAuthFunctions');
+const { isAdmin } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 
@@ -14,7 +15,7 @@ const router = express.Router();
 
 // READ
 // Find ALL USERS in the DB
-router.get("/all", async (request, response) => {
+router.get("/all", isAdmin, async (request, response) => {
 	// Empty object in .find() means get ALL documents
 	let result = await User.find({});
 
@@ -35,21 +36,17 @@ router.get("/one/id/:username", async (request, response) => {
 
 // CREATE a new User  in the DB
 // POST localhost:3000/users/
-router.post("/", async (request, response) => {
-
-	// Error handling via Promise.catch()
-	let result = await User.create(request.body).catch(error => {return error});
-	
-
-	response.json({
-		user: result
+router.post("/register", async (request, response) => {
+	try {
+		let newUser = await User.create(request.body);
+		response.status(201).json({ user: newUser });
+	  } catch (error) {
+		response.status(400).json({ error: error.message });
+	  }
 	});
-
-});
 
 // POST localhost:3000/users/login
 // request.body = {username: "admin", password: "Password1"}
-// respond with {jwt: "laskdnalksfdnal;fgvkmsngb;sklnmb", valid: true}
 router.post("/login", async (request, response) => {
 	// Find user by provided username 
 	let targetUser = await User.findOne({username: request.body.username}).catch(error => error);
@@ -73,7 +70,7 @@ router.post("/login", async (request, response) => {
 
 // UPDATE an existing user in DB 
 // patch modidies whatever properties is provided and doesn't overwrite or remove any unmentioned properties
-router.patch("/:username", async (request, response) => {
+router.patch("/:username", isAdmin, async (request, response) => {
 	let result = User.findByIdAndUpdate(request.params.id).catch(error => error);
 
 	response.json({
@@ -84,7 +81,7 @@ router.patch("/:username", async (request, response) => {
 
 
 // DELETE an existing user in DB
-router.delete("/:username", async (request, response) => {
+router.delete("/:username", isAdmin, async (request, response) => {
 	let result = User.findByIdAndDelete(request.params.id).catch(error => error);
 
 	response.json({

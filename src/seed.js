@@ -31,9 +31,9 @@ databaseConnect().then(async () => {
     
  // user data non-admin
     const User1 = new User({
-        username: "User1",
-        email: "user11@email.com",
-        password: "UserPassword1",
+            username: "User1",
+            email: "user11@email.com",
+            password: "UserPassword1",
         isAdmin: false,
     });
     
