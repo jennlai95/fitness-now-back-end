@@ -60,12 +60,11 @@ catch (error) {
 
 // update and delete needs to be an admin for access
 // CREATE a new booking  in the DB
-router.post("/", isAdmin, async (request, response) => {
+router.post("/", async (request, response) => {
 
 	// Error handling via Promise.catch()
 	let newBooking = await Booking.create(request.body).catch(error => {return error});
 	
-
 	response.json(
 		 newBooking
 	);
@@ -75,23 +74,22 @@ router.post("/", isAdmin, async (request, response) => {
 // UPDATE an existing schedule in DB 
 // patch modidies whatever properties is provided and doesn't overwrite or remove any unmentioned properties
 router.patch("/:id", isAdmin, async (request, response) => {
-	let result = await Booking.findByIdAndUpdate (
-		request.paramds.id,
-		request.body,
-		{
-			returnDocument:"after",
-		}
-	) .catch (error => error);
-
-	response.json({
-		booking:result
+	try {
+		let result = await Booking.findByIdAndUpdate(
+		  request.params.id,
+		  request.body,
+		  {
+			returnDocument: "after",
+		  }
+		);
+		response.json({
+		  booking: result,
+		});
+	  } catch (error) {
+		response.status(500).json({ error: error.message });
+	  }
 	});
 
-	response.json({
-	     result
-	});
-
-});
 
 
 // DELETE an existing class in DB
