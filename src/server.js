@@ -56,6 +56,5 @@ app.get("*", (request, response) => {
 
 // export app
 module.exports = {
-	app, 
-  PORT,
+	app
 }
