@@ -80,13 +80,24 @@ databaseConnect().then(async () => {
             await newSchedule.save();
             console.log(`${newSchedule._id} is in the DB`);
 
-            // error message handling
- } catch (error) {
-            console.error(`Error creating seed data: ${error.message}`);
-} finally {
-            // Close the database connection
- await mongoose.connection.close();
- }
+    let newSchedule2 = new Schedule ({
+        class : Yoga._id,
+        time: {
+            start: "17:00",
+            end : "18:00"},
+        date  : new Date("2023-12-23"),
+
+    });
+            await newSchedule2.save();
+            console.log(`${newSchedule2._id} is in the DB`);
+
+                    // error message handling
+        } catch (error) {
+                    console.error(`Error creating seed data: ${error.message}`);
+        } finally {
+                    // Close the database connection
+        await mongoose.connection.close();
+        }
         })
         // error message if failed to connect
         .catch((error) => {
